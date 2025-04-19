@@ -1,0 +1,10 @@
+[package]
+name = "credits"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+bevy = { workspace = true }
+common = { path = "../common" }
+theme = { path = "../theme" }
+asset_tracking = { path = "../asset_tracking" }

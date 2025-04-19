@@ -1,0 +1,10 @@
+[package]
+name = "loading"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+bevy = { workspace = true }
+asset_tracking = { path = "../asset_tracking" }
+common = { path = "../common" }
+theme = { path = "../theme" }
