@@ -35,7 +35,7 @@ impl<T: Spawn> Widgets for T {
             Name::new("Button"),
             Button,
             Node {
-                width: Px(200.0),
+                width: Px(250.0),
                 height: Px(65.0),
                 justify_content: JustifyContent::Center,
                 align_items: AlignItems::Center,

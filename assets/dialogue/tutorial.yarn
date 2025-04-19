@@ -1,0 +1,10 @@
+title: HelloWorld
+---
+Dr. Anton Sobeck: Let's see.
+Ah, yes! Welcome, Gaia. We think you're ready for another testrun. Now keep in mind, that this is a simulation, not the real thing!
+First, let's check your control subroutines. Use the MouseWheel to zoom in and out.
+<<wait_input "zoom">>
+Very good! Press and hold the MiddleMouseButton and move the mouse to pan around.
+<<wait_input "pan">>
+Perfect! Calibration seems to be in working order.
+===

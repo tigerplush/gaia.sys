@@ -7,3 +7,4 @@ edition = "2024"
 bevy = { workspace = true }
 common = { path = "../common" }
 theme = { path = "../theme" }
+tutorial = { path = "../tutorial" }

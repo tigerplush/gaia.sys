@@ -3,6 +3,7 @@
 use bevy::prelude::*;
 use common::states::Screen;
 use theme::widgets::{Containers, Widgets};
+use tutorial::Tutorial;
 
 pub fn plugin(app: &mut App) {
     app.add_systems(OnEnter(Screen::Title), spawn_title_screen);
@@ -13,7 +14,8 @@ fn spawn_title_screen(mut commands: Commands) {
         .ui_root()
         .insert(StateScoped(Screen::Title))
         .with_children(|parent| {
-            parent.button("Play").observe(enter_gameplay_screen);
+            parent.button("Tutorial").observe(enter_tutorial_screen);
+            parent.button("Start Game").observe(enter_gameplay_screen);
             parent.button("Credits").observe(enter_credits_screen);
 
             #[cfg(not(target_family = "wasm"))]
@@ -22,6 +24,15 @@ fn spawn_title_screen(mut commands: Commands) {
 }
 
 fn enter_gameplay_screen(_: Trigger<Pointer<Pressed>>, mut next_screen: ResMut<NextState<Screen>>) {
+    next_screen.set(Screen::Gameplay);
+}
+
+fn enter_tutorial_screen(
+    _: Trigger<Pointer<Pressed>>,
+    mut next_screen: ResMut<NextState<Screen>>,
+    mut commands: Commands,
+) {
+    commands.insert_resource(Tutorial);
     next_screen.set(Screen::Gameplay);
 }
 

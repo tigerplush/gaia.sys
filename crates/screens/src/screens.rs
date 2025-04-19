@@ -8,6 +8,7 @@ pub fn plugin(app: &mut App) {
             splash::plugin,
             loading::plugin,
             title::plugin,
+            gameplay::plugin,
             credits::plugin,
         ));
 }
