@@ -1592,6 +1592,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "camera"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+ "common",
+]
+
+[[package]]
 name = "cc"
 version = "1.2.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2340,6 +2348,7 @@ version = "0.1.0"
 dependencies = [
  "asset_tracking",
  "bevy",
+ "camera",
  "common",
  "dev_tools",
  "screens",

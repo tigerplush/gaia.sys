@@ -18,8 +18,16 @@ pub fn plugin(app: &mut App) {
     .add_systems(
         Update,
         (
-            spawn_dialog_runner.run_if(in_state(Screen::Gameplay).and(resource_exists::<Tutorial>).and(resource_added::<YarnProject>)),
-            observe_input.run_if(in_state(Screen::Gameplay).and(resource_exists::<Tutorial>).and(resource_exists::<InputObserver>)),
+            spawn_dialog_runner.run_if(
+                in_state(Screen::Gameplay)
+                    .and(resource_exists::<Tutorial>)
+                    .and(resource_added::<YarnProject>),
+            ),
+            observe_input.run_if(
+                in_state(Screen::Gameplay)
+                    .and(resource_exists::<Tutorial>)
+                    .and(resource_exists::<InputObserver>),
+            ),
         ),
     );
 }

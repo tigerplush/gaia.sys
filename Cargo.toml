@@ -13,6 +13,7 @@ bevy = "=0.16.0-rc.3"
 [dependencies]
 bevy = { workspace = true }
 asset_tracking = { path = "crates/asset_tracking" }
+camera = { path = "crates/camera" }
 common = { path = "crates/common" }
 dev_tools = { path = "crates/dev_tools" }
 screens = { path = "crates/screens" }

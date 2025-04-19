@@ -3,6 +3,7 @@ use bevy::{
     audio::{AudioPlugin, Volume},
     prelude::*,
 };
+use camera::{CameraPlugin, CameraSettings};
 use common::system_sets::AppSet;
 
 pub struct AppPlugin;
@@ -14,9 +15,6 @@ impl Plugin for AppPlugin {
             Update,
             (AppSet::TickTimers, AppSet::RecordInput, AppSet::Update).chain(),
         );
-
-        // Spawn the main camera.
-        app.add_systems(Startup, spawn_camera);
 
         // Add Bevy plugins.
         app.add_plugins(
@@ -46,24 +44,20 @@ impl Plugin for AppPlugin {
         );
 
         // Add other plugins.
-        app.add_plugins((asset_tracking::plugin, screens::plugin, theme::plugin));
+        app.add_plugins((
+            asset_tracking::plugin,
+            CameraPlugin(CameraSettings {
+                zoom_speed: 10.,
+                zoom_min: 1.,
+                zoom_max: 100.,
+                pan_speed: 10.,
+            }),
+            screens::plugin,
+            theme::plugin,
+        ));
 
         // Enable dev tools for dev builds.
         #[cfg(feature = "dev")]
         app.add_plugins(dev_tools::plugin);
     }
-}
-
-fn spawn_camera(mut commands: Commands) {
-    commands.spawn((
-        Name::new("Camera"),
-        Camera2d,
-        // Render all UI to this camera.
-        // Not strictly necessary since we only use one camera,
-        // but if we don't use this component, our UI will disappear as soon
-        // as we add another camera. This includes indirect ways of adding cameras like using
-        // [ui node outlines](https://bevyengine.org/news/bevy-0-14/#ui-node-outline-gizmos)
-        // for debugging. So it's good to have this here for future-proofing.
-        IsDefaultUiCamera,
-    ));
 }
