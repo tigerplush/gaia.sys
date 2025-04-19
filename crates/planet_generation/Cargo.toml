@@ -1,9 +1,8 @@
 [package]
-name = "camera"
+name = "planet_generation"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
 bevy = { workspace = true }
-leafwing-input-manager = { workspace = true }
 common = { path = "../common" }

@@ -7,4 +7,9 @@ First, let's check your control subroutines. Use the MouseWheel to zoom in and o
 Very good! Press and hold the MiddleMouseButton and move the mouse to pan around.
 <<wait_input "pan">>
 Perfect! Calibration seems to be in working order.
+Now, what you see before you is a barren planet, your job is to revive that planet. We've prepared some orbital drops you can deploy to the surface in order to correct the biosphere.
+But first, all your facilities need power! Press 'g' to display the geothermal overlay.
+<<wait_input "geothermal">>
+Great! The red spots mean there is a lot of vulcanic activity beneath the surface. The blue spots mean, a geothermal plant will barely produce power, if any at all.
+Now, deploy an orbital drop to one of the hot spots. Be careful to drop them onto land, otherwise they'll sink.
 ===

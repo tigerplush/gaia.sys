@@ -50,7 +50,7 @@ impl Plugin for AppPlugin {
                 zoom_speed: 10.,
                 zoom_min: 1.,
                 zoom_max: 100.,
-                pan_speed: 10.,
+                pan_speed: 5.,
             }),
             screens::plugin,
             theme::plugin,

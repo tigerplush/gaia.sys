@@ -3,6 +3,7 @@ use std::sync::{Arc, atomic::AtomicBool};
 use bevy::prelude::*;
 use bevy_yarnspinner::prelude::{YarnProject, YarnSpinnerPlugin};
 use bevy_yarnspinner_example_dialogue_view::ExampleYarnSpinnerDialogueViewPlugin;
+use camera::CameraMovementIntentions;
 use common::states::Screen;
 
 use crate::input_observer::*;
@@ -44,7 +45,6 @@ fn spawn_dialog_runner(project: Res<YarnProject>, mut commands: Commands) {
 }
 
 fn wait_input(In(input): In<String>, mut commands: Commands) -> Arc<AtomicBool> {
-    info!("{}", input);
     match input.as_str() {
         "zoom" => {
             let zoom_observer = ZoomObserver::new();
@@ -62,13 +62,20 @@ fn wait_input(In(input): In<String>, mut commands: Commands) -> Arc<AtomicBool> 
     }
 }
 
-fn observe_input(input_observer: ResMut<InputObserver>) {
+fn observe_input(
+    input_observer: ResMut<InputObserver>,
+    camera_intentions: Res<CameraMovementIntentions>,
+) {
     match input_observer.into_inner() {
         InputObserver::Zoom(zoom) => {
-            zoom.set_done();
+            if camera_intentions.zoom != 0. {
+                zoom.set_done();
+            }
         }
         InputObserver::Pan(pan) => {
-            pan.set_done();
+            if camera_intentions.pan != Vec2::ZERO {
+                pan.set_done();
+            }
         }
     }
 }

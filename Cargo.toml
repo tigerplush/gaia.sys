@@ -9,6 +9,7 @@ members = ["crates/*"]
 
 [workspace.dependencies]
 bevy = "=0.16.0-rc.3"
+leafwing-input-manager = { git = "https://github.com/Leafwing-Studios/leafwing-input-manager.git" }
 
 [dependencies]
 bevy = { workspace = true }
