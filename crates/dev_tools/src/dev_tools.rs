@@ -1,12 +1,22 @@
 //! Development tools for the game. This plugin is only enabled in dev builds.
 
 use bevy::{
-    dev_tools::states::log_transitions, input::common_conditions::input_just_pressed, prelude::*,
+    color::palettes::css::WHITE,
+    dev_tools::states::log_transitions,
+    input::common_conditions::input_just_pressed,
+    pbr::wireframe::{WireframeConfig, WireframePlugin},
+    prelude::*,
     ui::UiDebugOptions,
 };
+use bevy_inspector_egui::quick::WorldInspectorPlugin;
 use common::states::Screen;
 
 pub fn plugin(app: &mut App) {
+    app.add_plugins((WorldInspectorPlugin::new(), WireframePlugin::default()));
+    app.insert_resource(WireframeConfig {
+        global: false,
+        default_color: WHITE.into(),
+    });
     // Log `Screen` state transitions.
     app.add_systems(Update, log_transitions::<Screen>);
 

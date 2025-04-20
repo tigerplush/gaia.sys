@@ -27,7 +27,10 @@ impl Plugin for CameraPlugin {
             .insert_resource(CameraPosition::default())
             .add_plugins(InputManagerPlugin::<CameraActions>::default())
             .add_systems(Startup, setup_camera)
-            .add_systems(Update, (record_intentions, apply_intentions).run_if(in_state(Screen::Gameplay)))
+            .add_systems(
+                Update,
+                (record_intentions, apply_intentions).run_if(in_state(Screen::Gameplay)),
+            )
             .add_systems(OnExit(Screen::Gameplay), reset_camera);
     }
 }
@@ -81,8 +84,7 @@ fn record_intentions(
     let mouse_move = action_state.axis_pair(&CameraActions::Pan);
     if action_state.pressed(&CameraActions::PanActivate) {
         intentions.pan = mouse_move;
-    }
-    else {
+    } else {
         intentions.pan = Vec2::ZERO;
     }
 
@@ -97,15 +99,18 @@ fn apply_intentions(
     camera: Single<&mut Transform, With<Camera>>,
 ) {
     position.distance += intentions.zoom * settings.zoom_speed * time.delta_secs();
-    position.distance = position.distance.clamp(settings.zoom_min, settings.zoom_max);
+    position.distance = position
+        .distance
+        .clamp(settings.zoom_min, settings.zoom_max);
     position.longitude += intentions.pan.x * settings.pan_speed * time.delta_secs();
     if position.longitude < -180. {
         position.longitude += 360.;
-    }
-    else if position.longitude > 180. {
+    } else if position.longitude > 180. {
         position.longitude -= 360.;
     }
-    position.latitude = (position.latitude + intentions.pan.y * settings.pan_speed * time.delta_secs()).clamp(-80., 80.);
+    position.latitude = (position.latitude
+        + intentions.pan.y * settings.pan_speed * time.delta_secs())
+    .clamp(-80., 80.);
 
     let mut transform = camera.into_inner();
     transform.translation = position.as_vec3();
@@ -141,13 +146,11 @@ impl Default for CameraPosition {
 
 impl CameraPosition {
     fn as_vec3(&self) -> Vec3 {
-        let x = self.distance * self.latitude.to_radians().cos() * self.longitude.to_radians().cos();
+        let x =
+            self.distance * self.latitude.to_radians().cos() * self.longitude.to_radians().cos();
         let y = self.distance * self.latitude.to_radians().sin();
-        let z = self.distance * self.latitude.to_radians().cos() * self.longitude.to_radians().sin();
-        Vec3 {
-            x,
-            y,
-            z,
-        }
+        let z =
+            self.distance * self.latitude.to_radians().cos() * self.longitude.to_radians().sin();
+        Vec3 { x, y, z }
     }
 }
