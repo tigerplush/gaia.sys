@@ -12,7 +12,7 @@ use bevy_inspector_egui::quick::WorldInspectorPlugin;
 use common::states::Screen;
 
 pub fn plugin(app: &mut App) {
-    app.add_plugins((WorldInspectorPlugin::new(), WireframePlugin::default()));
+    app.add_plugins((WorldInspectorPlugin::new(), WireframePlugin));
     app.insert_resource(WireframeConfig {
         global: false,
         default_color: WHITE.into(),

@@ -5,5 +5,5 @@ edition = "2024"
 
 [dependencies]
 bevy = { workspace = true }
-bevy-inspector-egui = { git = "https://github.com/slyedoc/bevy-inspector-egui.git", rev = "51f0a42e3892c2776d692c456ea1f2a4ced7e6ce"}
+bevy-inspector-egui = { workspace = true }
 common = { path = "../common" }

@@ -9,7 +9,9 @@ members = ["crates/*"]
 
 [workspace.dependencies]
 bevy = "=0.16.0-rc.3"
+bevy-inspector-egui = { git = "https://github.com/slyedoc/bevy-inspector-egui.git", rev = "51f0a42e3892c2776d692c456ea1f2a4ced7e6ce"}
 leafwing-input-manager = { git = "https://github.com/Leafwing-Studios/leafwing-input-manager.git" }
+noise = "0.9.0"
 
 [dependencies]
 bevy = { workspace = true }
