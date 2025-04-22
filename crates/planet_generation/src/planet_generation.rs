@@ -5,6 +5,7 @@ use noise::OpenSimplex;
 
 use crate::{
     controls::{self, PlanetActions},
+    geothermal_material::GeothermalMaterial,
     noise_filter::{NoiseFilter, NoiseSettings},
     planet_settings::PlanetSettings,
     terrain_face::TerrainFace,
@@ -53,15 +54,18 @@ pub fn plugin(app: &mut App) {
                 },
             }),
         )
+        .add_plugins(MaterialPlugin::<GeothermalMaterial>::default())
         .add_plugins(InputManagerPlugin::<PlanetActions>::default())
         .add_systems(OnEnter(Screen::Gameplay), (spawn_planet, controls::setup))
         .add_systems(Update, controls::check.run_if(in_state(Screen::Gameplay)));
 }
 
 fn spawn_planet(
+    asset_server: Res<AssetServer>,
     settings: Res<PlanetSettings>,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
+    mut geothermal_material: ResMut<Assets<GeothermalMaterial>>,
     mut commands: Commands,
 ) {
     // light
@@ -96,7 +100,7 @@ fn spawn_planet(
             }
         });
 
-    let geothermal_settings = PlanetSettings { ..default() }.with_layer(NoiseFilter {
+    let geothermal_settings = PlanetSettings { radius: settings.radius, ..default() }.with_layer(NoiseFilter {
         noise: OpenSimplex::new(0),
         settings: NoiseSettings {
             number_of_layers: 1,
@@ -128,10 +132,14 @@ fn spawn_planet(
             for local_up in directions {
                 let terrain_face = TerrainFace::new(local_up);
                 let mesh_handle = meshes.add(terrain_face.to_mesh(&geothermal_settings));
+                let geothermal_material_handle = geothermal_material.add(GeothermalMaterial {
+                    radius: geothermal_settings.radius,
+                    gradient_texture: asset_server.load("textures/thermal_gradient.png"),
+                });
                 parent.spawn((
                     terrain_face,
                     Mesh3d(mesh_handle),
-                    MeshMaterial3d(material_handle.clone()),
+                    MeshMaterial3d(geothermal_material_handle.clone()),
                 ));
             }
         });

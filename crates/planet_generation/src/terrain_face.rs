@@ -54,6 +54,7 @@ impl TerrainFace {
                 }
             }
         }
+
         Mesh::new(
             PrimitiveTopology::TriangleList,
             RenderAssetUsages::MAIN_WORLD | RenderAssetUsages::RENDER_WORLD,

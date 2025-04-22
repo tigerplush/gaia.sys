@@ -44,7 +44,7 @@ impl Default for PlanetSettings {
         Self {
             resolution: 100,
             color: BLUE.into(),
-            radius: 2.0,
+            radius: 1.0,
             noise_filters: Vec::new(),
         }
     }
