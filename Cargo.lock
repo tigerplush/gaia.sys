@@ -4487,6 +4487,7 @@ dependencies = [
  "bevy",
  "bevy-inspector-egui",
  "common",
+ "leafwing-input-manager",
  "noise",
 ]
 
@@ -5668,6 +5669,7 @@ dependencies = [
  "bevy_yarnspinner_example_dialogue_view",
  "camera",
  "common",
+ "planet_generation",
 ]
 
 [[package]]

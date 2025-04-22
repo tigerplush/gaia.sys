@@ -9,3 +9,4 @@ bevy_yarnspinner = "=0.5.0-rc.1"
 bevy_yarnspinner_example_dialogue_view = "=0.5.0-rc.1"
 camera = { path = "../camera" }
 common = { path = "../common" }
+planet_generation = { path = "../planet_generation" }

@@ -5,6 +5,7 @@ use bevy_yarnspinner::prelude::{YarnProject, YarnSpinnerPlugin};
 use bevy_yarnspinner_example_dialogue_view::ExampleYarnSpinnerDialogueViewPlugin;
 use camera::CameraMovementIntentions;
 use common::states::Screen;
+use planet_generation::PlanetState;
 
 use crate::input_observer::*;
 
@@ -58,6 +59,12 @@ fn wait_input(In(input): In<String>, mut commands: Commands) -> Arc<AtomicBool> 
             commands.insert_resource(InputObserver::Pan(pan_observer));
             done
         }
+        "geothermal" => {
+            let geothermal_observer = OverlayObserver::new();
+            let done = geothermal_observer.done.clone();
+            commands.insert_resource(InputObserver::Overlay(geothermal_observer));
+            done
+        }
         _ => Arc::new(true.into()),
     }
 }
@@ -65,6 +72,7 @@ fn wait_input(In(input): In<String>, mut commands: Commands) -> Arc<AtomicBool> 
 fn observe_input(
     input_observer: ResMut<InputObserver>,
     camera_intentions: Res<CameraMovementIntentions>,
+    single: Single<&PlanetState>,
 ) {
     match input_observer.into_inner() {
         InputObserver::Zoom(zoom) => {
@@ -75,6 +83,11 @@ fn observe_input(
         InputObserver::Pan(pan) => {
             if camera_intentions.pan != Vec2::ZERO {
                 pan.set_done();
+            }
+        }
+        InputObserver::Overlay(overlay) => {
+            if single.into_inner().geothermal_overlay {
+                overlay.set_done();
             }
         }
     }
